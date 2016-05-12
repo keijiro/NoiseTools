@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
+using NoiseTools;
 
 [ExecuteInEditMode]
-public class NoiseTest : MonoBehaviour
+public class Tester : MonoBehaviour
 {
     [SerializeField, Range(2, 3)]
     int _dimensions = 2;
+
+    [SerializeField, Range(1, 4)]
+    int _fractal = 1;
 
     [SerializeField, Range(64, 256)]
     int _resolution = 64;
@@ -47,7 +51,7 @@ public class NoiseTest : MonoBehaviour
         if (_texture.width != _resolution)
             _texture.Resize(_resolution, _resolution);
 
-        var noise = new Klak.Math.CellularNoise(_frequency, 1, 0);
+        var noise = new WorleyNoise(_frequency, 1, 0);
 
         var scale = 1.0f / _resolution;
         var z = Time.time * 0.1f;
@@ -59,7 +63,19 @@ public class NoiseTest : MonoBehaviour
             for (var ix = 0; ix < _resolution; ix++)
             {
                 var x = scale * ix;
-                var c = _dimensions == 2 ? noise.Get(x, y) : noise.Get(x, y, z);
+
+                float c;
+                if (_fractal == 1)
+                    if (_dimensions == 2)
+                        c = noise.GetAt(x, y);
+                    else
+                        c = noise.GetAt(x, y, z);
+                else
+                    if (_dimensions == 2)
+                        c = noise.GetFractal(x, y, _fractal);
+                    else
+                        c = noise.GetFractal(x, y, z, _fractal);
+
                 _texture.SetPixel(ix, iy, new Color(c, c, c));
             }
         }
