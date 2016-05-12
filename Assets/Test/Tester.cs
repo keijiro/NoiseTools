@@ -4,6 +4,11 @@ using NoiseTools;
 [ExecuteInEditMode]
 public class Tester : MonoBehaviour
 {
+    enum NoiseType { Perlin, Worley }
+
+    [SerializeField]
+    NoiseType _noiseType;
+
     [SerializeField, Range(2, 3)]
     int _dimensions = 2;
 
@@ -51,7 +56,12 @@ public class Tester : MonoBehaviour
         if (_texture.width != _resolution)
             _texture.Resize(_resolution, _resolution);
 
-        var noise = new WorleyNoise(_frequency, 1, 0);
+        NoiseGeneratorBase noise;
+
+        if (_noiseType == NoiseType.Perlin)
+            noise = new PerlinNoise(_frequency, 1, 0);
+        else
+            noise = new WorleyNoise(_frequency, 1, 0);
 
         var scale = 1.0f / _resolution;
         var z = Time.time * 0.1f;

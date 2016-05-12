@@ -112,8 +112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aeec4b9712974c88b53dfe358169a58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dimensions: 3
-  _fractal: 2
+  _noiseType: 0
+  _dimensions: 2
+  _fractal: 1
   _resolution: 64
   _frequency: 5
 --- !u!4 &466336118
