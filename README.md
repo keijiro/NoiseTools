@@ -10,3 +10,11 @@ Things currently it has
 
 - Perlin noise
 - Worley noise
+
+Backgrounds
+-----------
+
+I made this small library to make noise volume textures for [CloudSkybox]
+(https://github.com/keijiro/CloudSkybox). This is basically quick and dirty hack --
+neither sophisticated nor optimized. I'm thinking of reimplementing them with C++
+to get performance gain, but no firm plam for it at the moment.
